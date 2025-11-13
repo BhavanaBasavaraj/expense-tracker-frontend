@@ -118,6 +118,40 @@ The frontend integrates with **16 backend API endpoints** including:
 
 All API calls are centralized in `src/services/api.js` for maintainability.
 
+## 🐳 Docker Setup
+
+### Build Docker Image
+```bash
+docker build -t expense-tracker-frontend:v1 .
+```
+
+### Run Container
+```bash
+docker run -d \
+  --name expense-tracker-frontend \
+  --add-host=host.docker.internal:host-gateway \
+  -p 3000:80 \
+  expense-tracker-frontend:v1
+```
+
+### Access Application
+- **Frontend:** http://localhost:3000
+- **Backend API:** http://localhost:8000
+- **API Docs:** http://localhost:8000/docs
+
+### Docker Compose (Recommended)
+Run both frontend and backend together:
+```bash
+docker-compose up -d
+```
+
+### Technical Details
+- **Multi-stage build:** Reduces image size from 1.2GB to 25MB
+- **Nginx web server:** Production-grade serving with gzip compression
+- **React Router support:** SPA routing handled by Nginx
+- **API proxy:** `/api` routes proxied to backend container
+
+
 ## 🤝 Contributing
 
 This is a personal learning project, but suggestions and feedback are welcome!
